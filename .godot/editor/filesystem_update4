@@ -1,6 +1,4 @@
+res://Timer.gd
 res://world.tscn
-res://Player/Player.gd
 res://main.tscn
-res://Player/Player.tscn
-res://BG.tscn
-res://Frog.tscn
+res://Collectables/Cherry.tscn
