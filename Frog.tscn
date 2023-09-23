@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ctkjqpb7ybqjm"]
+[gd_scene load_steps=23 format=3 uid="uid://ctkjqpb7ybqjm"]
 
 [ext_resource type="Script" path="res://frog.gd" id="1_8s4yy"]
 [ext_resource type="Texture2D" uid="uid://crtlfd6cf501e" path="res://Sunny-land-assets-files/PNG/spritesheets/frog-idle.png" id="1_fikjv"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bi3egum8vwsxo" path="res://Sunny-land-assets-files/PNG/spritesheets/frog-jump.png" id="2_e0cxv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aw737"]
-size = Vector2(18, 18)
+size = Vector2(19, 11)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7i1q"]
 atlas = ExtResource("2_c3gus")
@@ -81,7 +81,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rq33c")
 }],
-"loop": true,
+"loop": false,
 "name": &"Death",
 "speed": 5.0
 }, {
@@ -97,6 +97,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vukhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_focv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_focv5")
 }],
 "loop": true,
 "name": &"Idle",
@@ -118,25 +124,48 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yefma"]
-radius = 83.0542
+radius = 172.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xieqq"]
+size = Vector2(16, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1vck"]
+size = Vector2(23.5, 10)
 
 [node name="Frog" type="CharacterBody2D"]
 script = ExtResource("1_8s4yy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -9)
+position = Vector2(1.5, -5.5)
 shape = SubResource("RectangleShape2D_aw737")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -11)
 sprite_frames = SubResource("SpriteFrames_2sqkp")
-animation = &"Jump"
+animation = &"Idle"
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
 position = Vector2(1, -9)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 shape = SubResource("CircleShape2D_yefma")
 
+[node name="PlayerDeath" type="Area2D" parent="."]
+position = Vector2(2, -18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeath"]
+position = Vector2(-1, 7)
+shape = SubResource("RectangleShape2D_xieqq")
+
+[node name="PlayerCollision" type="Area2D" parent="."]
+position = Vector2(2, -18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollision"]
+position = Vector2(-0.25, 13)
+shape = SubResource("RectangleShape2D_v1vck")
+
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
+[connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision_body_entered"]
