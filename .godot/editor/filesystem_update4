@@ -1,4 +1,4 @@
-res://Timer.gd
-res://world.tscn
 res://main.tscn
+res://world.tscn
 res://Collectables/Cherry.tscn
+res://main.gd
